@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: "postgres"
+    container_name: "my_postgres"
+    restart: always 
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'root'
+      POSTGRES_DATABASE: 'my-postgres'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_PORT: '5432'
+    volumes:
+          # this command will create database as described in init file 
+     # - .:/docker-entrypoint-initdb.d/       
+      - db_volume:/var/lib/postgresql
+  backend:
+    build: .
+    command: sh -c "uvicorn main:app --reload --port 8000 --host=0.0.0.0"
+    ports:
+      - 5000:5000
+    depends_on: 
+      - db
+  
+volumes:
+  db_volume: {}

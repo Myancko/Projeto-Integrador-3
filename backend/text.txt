@@ -1,0 +1,12 @@
+docker-compose up --build
+
+docker pull postgres:alpine
+docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:alpine
+
+docker exec -it my_postgres
+
+create database test_6;
+create user postgres with encrypted password 'root';
+grant all privileges on database test_6 to postgres;
+
+psql -h localhost -p 5432 postgres

@@ -1,0 +1,63 @@
+.sec
+{
+    pad: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+
+}
+.img, .data
+{
+   width: 300px;
+   height: 150px; 
+   max-height: 300px;
+   
+}
+.img
+{
+    border-radius: 5px 5px 0 0;
+}
+.data
+{
+    position: relative;
+    display: flex;
+    background-color: #5C5C5C;
+    color: white;
+    border-radius: 0 0 5px 5px;
+    
+}
+.user_info, 
+.nome_mat, 
+.date, 
+.pages, 
+.under_half, 
+.date_page
+{
+    display: flex;
+}
+.nome_mat
+{
+    gap: 5px;
+}
+.date_page, .status
+{
+    flex: 1;
+}
+.date_page, .pages, .date
+{
+    align-items: center;
+    gap: 5px;
+}
+.user_info
+{
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 25px 5px 5px 5px;
+}
+/* .prioridade
+{
+    position: absolute;
+
+} */

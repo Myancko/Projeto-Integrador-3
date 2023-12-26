@@ -1,0 +1,19 @@
+.sec
+{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+
+    text-align: center;
+
+    background-color: #FF4646;
+
+    height: 50px;
+    max-width: 150px;
+    color: white;
+
+    padding: 3px;
+    border-radius: 22px;
+}
+

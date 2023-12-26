@@ -1,0 +1,51 @@
+.header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #515050;
+
+    width: 100%;
+    max-width: 1045px;
+    padding: 5px 0px 5px 0px;
+    border-radius: 3px;
+}
+.header_main
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+.header h1
+{
+    font-size: 21px;
+    text-shadow: -2px 5px 4px black;
+}
+.header h1, .main_nav, .user p
+{
+    color: white;
+}
+.main_nav
+{
+    text-decoration: none;
+}
+.main_nav, .user
+{
+    display: flex;
+}
+.main_nav
+{
+    gap: 5px;
+}
+.user
+{
+    width: 100%;
+    max-width: 170px;
+    gap: 5px;
+    align-items: center;
+}
+.user_photo
+{
+    border-radius: 100px;
+}

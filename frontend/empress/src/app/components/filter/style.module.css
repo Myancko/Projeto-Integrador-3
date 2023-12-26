@@ -1,0 +1,49 @@
+.close,.refresh,.check,.clock,.alert,.x{cursor: pointer;}
+.close:active,.refresh:active,.check:active,.clock:active,.alert:active,.x:active{position: relative; top: 1px;}
+.check:hover{ color: #10C722;}
+.clock:hover{ color: #00A0D2;}
+.alert:hover{ color: #D8B70B;}
+.x:hover{ color: red;}
+.close:hover{ color: rgb(251, 82, 82);}
+.refresh:hover{ color: rgb(222, 194, 194);}
+
+
+.main_filter{
+    width: 100%;
+    max-width: 300px;
+
+    background-color: rgb(49, 49, 49);
+
+    border-radius: 5px;
+}
+.upper
+{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+.first_half, .second_half
+{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+
+    font-weight: 600;
+}
+.filters
+{
+    height: 75px;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.air
+{
+    height: 30px;
+}

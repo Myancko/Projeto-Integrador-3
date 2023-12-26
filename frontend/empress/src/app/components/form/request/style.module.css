@@ -1,0 +1,124 @@
+.body
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.main
+{
+    width: 100%;
+    height: 100%;
+    max-width: 1045px;
+    padding: 50px;
+    background-color: #515050;
+}
+.main form
+{
+
+    display: flex;
+
+    flex: 1;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.label_file
+{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+}
+.label_file label
+{
+    width: 100%;
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    border: 3px dotted white;
+    cursor: pointer;
+}
+.input_file
+{
+    display: none;
+}
+.motivo
+{
+    width: 100%;
+    border-radius: 8px;
+}
+.motivo_div{
+    color: white;
+}
+.underhalf
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.qnt_pg, .cor, .fv
+{
+    display: flex;
+    color: white;
+}
+.qnt_pg 
+{
+    gap: 5px;
+}
+.qnt_pg input
+{
+    height: 20px;
+    width: 40px;
+}
+.cor
+{
+    display: flex;
+    gap: 5px;
+}
+.select
+{
+    margin-top: 15px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.select div input[type="radio"]
+{
+    width: 20px;
+    height: 20px;
+}
+.select div
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.submit
+{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.but_sub{
+    
+    background-color: #404040;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    width: 75px;
+    height: 30px;
+}
+.but_sub:hover{
+    
+    background-color: #5a78ff;
+
+}

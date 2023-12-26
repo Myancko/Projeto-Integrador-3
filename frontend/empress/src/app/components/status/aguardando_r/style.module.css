@@ -1,0 +1,22 @@
+.sec
+{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+
+
+
+    text-align: center;
+
+    background-color: #00A0D2;
+
+    width: fit-content;
+    height: 50px;
+    max-width: 150px;
+    color: white;
+
+    padding: 3px;
+    border-radius: 22px;
+}
+

@@ -1,0 +1,12 @@
+.baixa_pri
+{
+    position: absolute;
+    top:  -15px;
+    left: 10px;
+
+    background-color: #49D198;
+    color: white;
+    border-radius: 23px;
+    padding: 5px;
+}
+
