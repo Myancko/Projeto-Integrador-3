@@ -97,7 +97,12 @@ export default function Home_list() {
                         Content ? (
                             Content.map((cont) => (
 
-                                <Requisicao_comp user={currentUser} content={cont}/>
+                                <div>
+
+                                    <Requisicao_comp user={currentUser} content={cont}/>
+
+                                </div>
+                                
 
                             ))
                             

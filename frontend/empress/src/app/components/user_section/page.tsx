@@ -1,7 +1,6 @@
 'use client'
 
 import { getCookie } from 'cookies-next';
-import { setCookie, deleteCookie } from 'cookies-next';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 import styles from "./style.module.css"
@@ -55,9 +54,9 @@ export default function User_header_section() {
         <section className={styles.user}>
             <Bell size={25} color={"white"} />
 
-            <Link className={styles.user_fix}  href={"user"}>
+            <Link className={styles.user_fix}  href={"/user"}>
                 <Image src={user_icon} className={styles.user_photo} width={30} height={30}/>
-                <p>{currentUser ? currentUser.name : 'Loading...'}</p>
+                <p>{currentUser ? currentUser.name.split(' ')[0]  : 'Loading...'}</p>
             </Link>
             
         </section>     

@@ -5,12 +5,14 @@
     align-items: center;
     gap: 10px;
 }
+
 .list_request
 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
+ 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Define as colunas do grid */
     width: 100%;
+    gap: 10px;
     max-width: 1045px;
+      
 }

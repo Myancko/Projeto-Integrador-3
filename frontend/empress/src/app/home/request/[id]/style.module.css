@@ -2,5 +2,91 @@
 {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
+}
+.main
+{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    width: 100%;
+    max-width: 1045px;
+    
+}
+.user_content
+{
+
+    flex: 1;
+    width: 100%;
+    max-width: 855px;
+    background-color: #515050;
+    border-right: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+
+    color: white;
+
+}
+.user_content p
+{
+    text-align: center;
+    white-space: nowrap;
+}
+.main_content
+{
+    width: 100%;
+    height: 100%;
+
+    max-height: 1017px;
+    max-width: 855px;
+    background-color: #515050;
+}
+
+.centent_sec
+{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+
+}
+.motivo
+{
+    width: 100%;
+    max-width: 535px;
+}
+.motivo h2
+{
+    text-align: center;
+}
+.motivo p
+{
+    padding: 20px 0px 20px 0px;
+}
+.align
+{
+    display: flex;
+    width: 100%;
+    max-width: 535px;
+    gap: 5px;
+}
+.centent_sec
+{
+    gap: 20px;
+    color: white;
+}
+
+.buttons
+{
+    width: 100%;
+    max-width: 535px;
+    display: flex;
+    justify-content: space-between;
 }

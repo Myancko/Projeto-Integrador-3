@@ -1,14 +1,16 @@
-from fastapi import APIRouter, Depends, UploadFile, File, Form, Request
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, UploadFile, File, Form, Request, HTTPException
+from fastapi.responses import JSONResponse, FileResponse
 
 import datetime
+import ntpath
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from db_config.sqlalchemy_config import SessionFactory
 from ..models.request import Request_req
 from request.repository.request import RequestRepository
 from models.sqlalchemy_models.alchemy_mod import Request, User
-from typing import Annotated
+
+import fitz #transforma pdf em img
 
 import os
 
@@ -52,6 +54,33 @@ async def get_request(id: int, sess: Session = Depends(sess_db)):
     repo: RequestRepository = RequestRepository(sess)
     result = repo.get_request(id)
     return result
+
+@router.get("/download/{id}")
+async def get_request(id: int, sess: Session = Depends(sess_db)):
+    repo: RequestRepository = RequestRepository(sess)
+    result = repo.get_request(id)
+    
+    #file_path = "../"+result.data
+    file_path = result.data
+    file_name = ntpath.basename(file_path)
+    return FileResponse(path=file_path, filename=file_name, media_type='')
+
+@router.get("/file_img/{id}")
+async def get_request(id: int, sess: Session = Depends(sess_db)):
+    repo: RequestRepository = RequestRepository(sess)
+    result = repo.get_request(id)
+    
+    full_path = result.data
+    directory_path = os.path.dirname(full_path)
+    
+    
+    file_path = f"{directory_path}/img.png"
+    print(file_path, '<<<')
+
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    return FileResponse(path=file_path)
 
 @router.post("/add")
 async def add_request(req: Request_req = Depends(),
@@ -107,8 +136,31 @@ async def add_request(req: Request_req = Depends(),
     
     result = repo.insert_request(request)
     
+    ###  get file img
+    
+    file_name , file_extension = os.path.splitext(request.data)
+    save_locaton = f"requests/{owner}/{last_id+1}/"
+    
+    if file_extension == ".pdf":
+        
+        pdf_document = fitz.open(request.data)
+        page_index = 0
+        
+        page = pdf_document.load_page(page_index)
 
+
+        image_list = page.get_pixmap()
+
+        image_list.save(f"{save_locaton}img.png")
+        
+    elif file_extension == ".rtf":
+        
+        print('ainda n ;-;')
+    
+    #input('><><><><><>> stop') 
+    
     if result == True:
+        
         return request
     else:
         return JSONResponse(content={'message': 'create request problem encountered'}, status_code=500)

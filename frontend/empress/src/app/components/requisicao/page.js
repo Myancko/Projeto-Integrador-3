@@ -44,7 +44,7 @@ export default function Requisicao_comp( props ) {
 
                         <div className={styles.nome_mat}>
 
-                            <h3>{props.user.name}</h3>
+                            <h3>{props.user.name.split(' ')[0] } {props.user.name.split(' ')[1] } </h3>
                             <h3>{props.user.matricula ? props.user.matricula : props.user.email}</h3>
 
                         </div>

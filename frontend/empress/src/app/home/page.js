@@ -15,15 +15,20 @@ export default async function Home() {
                 <main className={styles.main}>
 
                 <Requisicao_comp/>
-                    
+
                 </main>
-                <section>
-                    <Link href="/create_request">
-                        <button>
-                            Criar Requisição
-                        </button>
-                    </Link>
-                </section>
+
+                <div className={styles.fix_aling_center}>
+
+                    <section className={styles.create}>
+                        <Link href="/create_request">
+                            <button>
+                                Criar Requisição
+                            </button>
+                        </Link>
+                    </section>
+                </div>
+                
                 
                 
             </div>
