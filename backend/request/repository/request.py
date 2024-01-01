@@ -40,7 +40,10 @@ class RequestRepository:
             self.sess.commit()
             
             
-            shutil.rmtree(f'requests/{owner.matricula}/{id}') #limpa a pasta
+            try:
+                shutil.rmtree(f'requests/{owner.matricula}/{id}') #limpa a pasta
+            except:
+                shutil.rmtree(f'../requests/{owner.matricula}/{id}') #limpa a pasta
 
         except:
             

@@ -1,3 +1,6 @@
+import sys
+sys.path.append("..")
+
 from fastapi import APIRouter, Depends, UploadFile, File, Form, Request, HTTPException
 from fastapi.responses import JSONResponse, FileResponse
 
@@ -5,8 +8,15 @@ import datetime
 import ntpath
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from db_config.sqlalchemy_config import SessionFactory
-from ..models.request import Request_req
+try:
+    from db_config.sqlalchemy_config import SessionFactory
+except:
+    from ...db_config.sqlalchemy_config import SessionFactory
+try:
+    from ..models.request import Request_req
+except:
+    from models.request import Request_req
+    
 from request.repository.request import RequestRepository
 from models.sqlalchemy_models.alchemy_mod import Request, User
 
@@ -65,18 +75,28 @@ async def get_request(id: int, sess: Session = Depends(sess_db)):
     file_name = ntpath.basename(file_path)
     return FileResponse(path=file_path, filename=file_name, media_type='')
 
-@router.get("/file_img/{id}")
+@router.get("/file/img/{id}")
 async def get_request(id: int, sess: Session = Depends(sess_db)):
     repo: RequestRepository = RequestRepository(sess)
     result = repo.get_request(id)
     
-    full_path = result.data
-    directory_path = os.path.dirname(full_path)
-    
-    
-    file_path = f"{directory_path}/img.png"
-    print(file_path, '<<<')
+    try:
+        full_path = result.data
+        directory_path = os.path.dirname(full_path)
+        file_path = f"{directory_path}/img.png"
+        print(file_path, '<<<')
+        file_extension = os.path.splitext(full_path)[1]
+        
+        print(file_extension, directory_path)
 
+    except:
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    if file_extension == '.png' or file_extension == '.jpg' or file_extension == '.jpeg':
+        
+        return FileResponse(path=full_path)
+    
+    
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
 

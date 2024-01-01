@@ -36,7 +36,7 @@ export default function User_header_section() {
             };
 
             try {
-                const user = await axios.get<User>("http://127.0.0.1:8000/account/me",
+                const user = await axios.get<User>("http://127.0.0.1:8001/account/me",
                 config
                 )
                 setCurrentUser(user.data)

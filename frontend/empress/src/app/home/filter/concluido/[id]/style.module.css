@@ -1,0 +1,26 @@
+.body
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create
+{
+
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 5px 0px 5px 0px;
+
+    border-radius: 3px;
+
+    width: 100%;
+    max-width: 1045px;
+    margin: auto;
+
+}
+.create button
+{
+    padding: 15px;
+}

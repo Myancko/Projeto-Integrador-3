@@ -15,7 +15,7 @@ export default function Login_form() {
 
     
     const authenticate_user = async ( ) => {
-        const loginUrl = "http://127.0.0.1:8000/account/token";
+        const loginUrl = "http://127.0.0.1:8001/account/token";
     
         const formData = new URLSearchParams();
         formData.append('username', matricula);
@@ -40,8 +40,6 @@ export default function Login_form() {
           setCookie('access', coockie_access) 
 
           await router.push("/home");
-
-
     
         } catch (error) {
           console.error(error);

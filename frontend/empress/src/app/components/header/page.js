@@ -20,8 +20,7 @@ export default function Header_comp() {
                 <h1>Empress</h1>
 
                 <ul className={styles.main_nav}>
-                    <li> <Link href="/home">Home</Link> </li>
-                    <li> <a href="">Requisições</a> </li>
+                    <li> <Link href="/home/1">Home</Link> </li>
                 </ul>
                 
                 <User_header_section/>

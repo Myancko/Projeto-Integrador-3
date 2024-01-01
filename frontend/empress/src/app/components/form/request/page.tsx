@@ -60,7 +60,7 @@ export default function Form_submit_request() {
             };
 
             try {
-                const user = await axios.get<User>("http://127.0.0.1:8000/account/me",
+                const user = await axios.get<User>("http://127.0.0.1:8001/account/me",
                 config
                 )
                 setCurrentUser(user.data)
@@ -136,7 +136,7 @@ export default function Form_submit_request() {
                 });
               
                 console.log('Request added:', response.data);
-                await router.push("/home");
+                await router.push("/home/1");
             } catch (error) {
               console.error('Error adding request:', error);
             }
@@ -179,7 +179,7 @@ export default function Form_submit_request() {
             <div className={styles.underhalf}>
                 <div className={styles.qnt_pg}>
                     <p>Quantidade de copias:</p>
-                    <input defaultValue={1} type="number" name="qnt" id="" onChange={e => setQuantidade(e.target.value)} />
+                    <input defaultValue={1} min="1" type="number" name="qnt" id="" onChange={e => setQuantidade(e.target.value)} />
                 </div>
                 <div className={styles.cor}>
                     <div>

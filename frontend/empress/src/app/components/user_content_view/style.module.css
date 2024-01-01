@@ -1,0 +1,36 @@
+.body
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 1%;
+    
+}
+.main
+{
+    
+    width: 100%;
+    max-width: 1045px;
+    
+    display: flex;
+    background-color: #515050;
+    gap: 10px;
+
+    border-radius: 3px;
+}
+.padding
+{
+    padding: 10px;
+}
+.user_inf
+{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    gap: 20px;
+}
+.name
+{
+    font-size: 21px;
+    font-weight: bold;
+}

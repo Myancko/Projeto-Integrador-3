@@ -1,15 +1,15 @@
 'use client'
 
-import Image from 'next/image'
 import styles from "./style.module.css"
-import backgroun_img from '../../../assets/images/printer_background.png'
 import React from "react";
-import Login_form from '../components/form/login_form/page';
+
 import Link from 'next/link'
+import Header_comp from "../components/header/page";
+
 import { useRouter } from "next/navigation";
-
+import User_view from "../components/user_view/page";
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
-
+import {LogOut} from "lucide-react";
 
 export default function Login() {
 
@@ -24,7 +24,21 @@ export default function Login() {
 
         <main className={styles.main}>
 
-            <button  onClick={Delete_token}>sair</button>
+
+                <Header_comp/>
+                <main className={styles.main}>
+
+                <User_view/>
+
+                </main>
+
+                <div className={styles.fix_aling_center}>
+
+                    <section className={styles.create}>
+                        <button  onClick={Delete_token}>Sair <LogOut /> </button>
+                    </section>
+                </div>
+                
 
         </main>
 

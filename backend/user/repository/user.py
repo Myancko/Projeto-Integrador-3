@@ -30,12 +30,19 @@ class UserRepository:
 
     def delete_user(self, id: int) -> bool:
         try:
-            user = self.sess.query(User).filter(User.id_user == id).delete()
-            self.sess.commit()
-
-        except:
+            user = self.sess.query(User).filter(User.id_user == id).first()
+            if user:
+                self.sess.delete(user)
+                self.sess.commit()
+                return True
+            else:
+                print(f"User with ID {id} not found.")
+                return False
+            
+        except Exception as e:
+            print(f"Error deleting user: {e}")
+            self.sess.rollback()  # Rollback changes if an exception occurs
             return False
-        return True
 
     def get_all_accounts(self):
         return self.sess.query(User).all()

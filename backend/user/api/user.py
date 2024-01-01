@@ -1,15 +1,27 @@
+import sys
+sys.path.append("..")
+
 import jwt
 import json
 from requests import Session as S
-import security
-
+try:
+    import security
+except:
+    from ... import security
+    
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from db_config.sqlalchemy_config import SessionFactory
-from ..models.user import User_req, Suap_req
-from ..repository.user import UserRepository
+
+try: 
+    from ..models.user import User_req, Suap_req
+    from ..repository.user import UserRepository
+except:
+    from models.user import User_req, Suap_req
+    from repository.user import UserRepository
+    
 from models.sqlalchemy_models.alchemy_mod import User
 from typing import List
 from sqlalchemy import desc
@@ -61,6 +73,7 @@ def login(matricula : str, password: str, sess: Session = Depends(sess_db)):
     owner_matricula = sess.query(User).filter(User.matricula == matricula)
     owner_email = sess.query(User).filter(User.email == matricula)
     #print(dir(owner_matricula), owner_matricula.count(),'<<<<<<<<')
+    #print(owner_matricula.count(), owner_email.count(), matricula, password)
 
     if owner_matricula.count() != 0:
         
@@ -79,9 +92,12 @@ def login(matricula : str, password: str, sess: Session = Depends(sess_db)):
         print(p, '>>>>>>>>>>>>>>>>>>>')
         
         if p == True:
+            #print(owner_email[0].email)
+            #input('>>> ')
             return owner_email[0]
         
         else:
+            
             return False
 
     else:
@@ -124,7 +140,11 @@ async def get_current_user(token : str = Depends(oauth), sess: Session = Depends
     
         token_decode = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
         print(token_decode['matricula'], '<<<<<')
-        user = sess.query(User).filter(User.matricula == token_decode['matricula']).first()
+        
+        if token_decode['matricula'] ==  None:
+            user = sess.query(User).filter(User.email == token_decode['email']).first()
+        else:
+            user = sess.query(User).filter(User.matricula == token_decode['matricula']).first()
     
     except:
         raise HTTPException(
@@ -228,11 +248,12 @@ def create_account(req: User_req, sess: Session = Depends(sess_db)):
 @router.delete("/delete/{id}")
 async def delete_account(id: int, sess: Session = Depends(sess_db)):
     repo: UserRepository = UserRepository(sess)
+    print(id)
     result = repo.delete_user(id)
     if result:
         return JSONResponse(content={'message': 'login deleted successfully'}, status_code=200)
     else:
-        return JSONResponse(content={'message': 'delete login error'}, status_code=500)
+        return JSONResponse(content={'message': 'delete user error, maybe there is a relationship between the user\s table and the request\'s table'}, status_code=500)
    
 @router.patch("/update/{id}")
 def update_account(id: int, req: User_req, sess: Session = Depends(sess_db)):

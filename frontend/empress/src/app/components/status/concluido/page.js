@@ -2,7 +2,7 @@ import Image from 'next/image'
 import styles from "./style.module.css"
 import { Check } from "lucide-react";
 
-export default async function status_concluido() {
+export default function Status_concluido() {
     return (
 
         <section className={styles.sec}>

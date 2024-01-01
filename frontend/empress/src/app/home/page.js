@@ -1,37 +1,16 @@
-import '../globals.css'
-import styles from "./style.module.css"
-import Header_comp from '../components/header/page'
-import Nav_comp from '../components/nav_pagination/page'
-import Link from 'next/link'
-import Requisicao_comp from '../components/home_comp/page'
+"use client"
 
-export default async function Home() {
+import { useRouter } from "next/navigation";
 
+export default function Home() {
+
+    const router = useRouter();
+
+    router.push("http://127.0.0.1:3000/home/1");
     return (
 
         < >
-            <div className={styles.body}>
-                <Header_comp/>
-                <main className={styles.main}>
-
-                <Requisicao_comp/>
-
-                </main>
-
-                <div className={styles.fix_aling_center}>
-
-                    <section className={styles.create}>
-                        <Link href="/create_request">
-                            <button>
-                                Criar Requisição
-                            </button>
-                        </Link>
-                    </section>
-                </div>
-                
-                
-                
-            </div>
+            <p>redirekucuts magistus pew pew</p>
         </>
 
 )}

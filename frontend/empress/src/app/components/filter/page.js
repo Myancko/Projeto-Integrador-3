@@ -7,6 +7,7 @@ import {Filter,
         Clock,
         AlertCircle,
         X} from "lucide-react";
+import Link from 'next/link'
 
 export default function Filter_modal({ isOpen, onClose }) {
     if (!isOpen) return null;
@@ -25,7 +26,7 @@ export default function Filter_modal({ isOpen, onClose }) {
 
                 <div className={styles.second_half}>
 
-                    <RefreshCcw className={styles.refresh}/>
+                    <Link href={'/home'}><RefreshCcw className={styles.refresh}/></Link>
                     <XCircle className={styles.close} onClick={onClose} />
 
                 </div>
@@ -34,10 +35,10 @@ export default function Filter_modal({ isOpen, onClose }) {
 
             <div className={styles.filters}>
 
-                <Check className={styles.check}/>
-                <Clock className={styles.clock}/>
-                <AlertCircle className={styles.alert}/>
-                <X className={styles.x}/>
+                <Link href={'http://127.0.0.1:3000/home/filter/concluido/1'}> <Check className={styles.check}/> </Link>
+                <Link className={styles.fix} href={'http://127.0.0.1:3000/home/filter/aguardo/1'}><Clock className={styles.clock}/></Link>
+                <Link className={styles.fix} href={'http://127.0.0.1:3000/home/filter/nao_visto/1'}><AlertCircle className={styles.alert}/> </Link>
+                <Link className={styles.fix} href={'http://127.0.0.1:3000/home/filter/cancelado/1'}><X className={styles.x}/></Link>
             
             </div>
 

@@ -1,58 +1,66 @@
-'use client'
+"use client"
 
 import Image from 'next/image'
 import styles from "./style.module.css"
-import suap_logo from '../../../../../assets/images/image.jpeg'
-import React, { useState, useContext, SyntheticEvent, useEffect } from "react";
+import place_holder from "../../../../../assets/images/user_icon.png"
+import suap_logo from "../../../../../assets/images/logo do suap.jpeg"
+import React, { useState, useContext, SyntheticEvent } from "react";
+import { setCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
 import axios from 'axios'
 
-export default function Cadastro_form() {
 
-    const [nome, setNome] = useState("");
-    const [matricula, setMatricula] = useState("");
+export default function Login_form() {
+
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
-    const [senha, setPassword] = useState("");
-    const [loop, setLoop] = useState(false);
+    const [password, setPassword] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
+
     const router = useRouter();
 
     
-    const submit_request = async ( ) => {
+    const create_user = async ( ) => {
 
+        let num = ''
 
-        const requestBody = {
-            "id_user": Math.floor(Math.random() * 90000),
-            "name": nome,
-            "matricula": matricula,
-            "email": email,
-            "password": senha,
-            "number": phone,
-            "role": "123213"
-          };
+        if (phone == null){
 
-        try {
-            const response = await axios.post("http://127.0.0.1:8000/account/add", requestBody )
-            await router.push("/login");
-            
-        } catch (error)
-        {
-            console.error('Error: >>>', error);
+           num = '1234'
 
-            if(error.response.status == 500)
-            {
-                console.log('dsads')
-                if(loop == false){
-                    setLoop(true)
-                    submit_request()
-                }
-                
-            }
-    
         }
+        else{
+          num = phone
+        }
+
+        const userData = {
+          id_user: 0,
+          name: name,
+          matricula: "",
+          email: email,
+          password: password,
+          number: num,
+          role: "anon"
+        };
         
-    }
+        
+        try {
+          const response = await axios.post('http://127.0.0.1:8001/account/add', userData)
+          router.push("/login");
+
+
+    
+        } catch (error) {
+          console.error(error, '<<< error cadastro');
+        }
+      };
+
+    const switchImage = (e) => {
+      const file = e.target.files[0];
+      setSelectedImage(file)
+    };
 
 
     const handleSubmit = async (e: SyntheticEvent) => {
@@ -60,48 +68,114 @@ export default function Cadastro_form() {
         e.preventDefault();
         
         try {
-          await submit_request();
+          await create_user();
         } catch (error) {
           console.error(error);
         }
       };
 
     return (
-        
-  
-        <form className={styles.form_login} onSubmit={handleSubmit}> 
 
-            <h1 className={styles.title}>Empress</h1>
-            
-            <div>
-                <label className={styles.form_label} for="nome">Nome</label>
-                <input className={styles.form_input} type="text" id="nome" name="nome" placeholder="" onChange={(e) => setNome(e.target.value)}/>
-                <label className={styles.form_label} for="matricula">Matricula</label>
-                <input className={styles.form_input} type="text" id="matricula" name="matricula" placeholder="" onChange={(e) => setMatricula(e.target.value)}/>
-                <label className={styles.form_label} for="email">E-mail</label>
-                <input className={styles.form_input} type="email" id="email" name="email" placeholder="" onChange={(e) => setEmail(e.target.value)}/>
-                <label  className={styles.form_label} for="phone">Telefone</label>
+        <main className={styles.main}>
 
-                <input  className={styles.form_input} 
-                    type="tel" 
-                    id="phone" 
-                    name="phone" 
-                    /* pattern="^\(\d{2,3}\) \d{5} \d{4}$" 
-                    placeholder="(00) 00000 0000"  */
-                    onChange={(e) => setPhone(e.target.value)}
-                />
 
-                <label  className={styles.form_label} for="senha">Senha</label>
-                <input  className={styles.form_input} type="password" id="senha" name="senha" placeholder="" onChange={(e) => setPassword(e.target.value)}/>
+            <div className={styles.flex_login}>
+
+                <form className={styles.form_login} onSubmit={handleSubmit}> 
+
+                    <h1 className={styles.title}>Empress</h1>
+
+                    <div className={styles.main_form}>
+                      <div className={styles.img_user}>
+                          <label htmlFor="user_photo" className={styles.label}>
+
+                            { selectedImage ? (
+
+                              <>
+                                <Image
+                                  src={URL.createObjectURL(selectedImage)}
+                                  alt="plus"
+                                  width={75}
+                                  height={75}
+                                />
+                              </>
+
+                              ) : (
+                              
+                              <>
+                                <Image
+                                  src={place_holder}
+                                  alt="plus"
+                                  width={75}
+                                  height={75}
+                                />
+                              </>
+                            )}
+                          </label>
+                        </div>
+                        <input type="file" hidden onChange={switchImage} name="user_photo" id="user_photo" />
+
+                        <label className={styles.form_label}>Nome</label>
+                        <input 
+                            className={styles.form_input} 
+                            onChange={(e) => setName(e.target.value)}
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder=""
+                            />
+                        
+                        <label className={styles.form_label}>E-mail</label>
+                        <input 
+                            className={styles.form_input} 
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="text" 
+                            id="email" 
+                            name="email" 
+                            placeholder=""
+                            />
+
+                        <label className={styles.form_label}>Telefone</label>
+                        <input 
+                            className={styles.form_input} 
+                            onChange={(e) => setPhone(e.target.value)}
+                            type="text" 
+                            id="phone" 
+                            name="phone" 
+                            placeholder=""
+                            />
+                          
+                        <label className={styles.form_label}>Senha</label>
+                        
+                        <input 
+                            className={styles.form_input} 
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password" 
+                            id="senha" 
+                            name="senha" 
+                            placeholder=""
+                            />
+                    </div>
+                      
+                    <Link href={"http://127.0.0.1:3000/cadastro/suap"}>
+
+                      <Image src={suap_logo} width={100} height={50} />
+
+                    </Link>
+                    
+                  
+                    <div className={styles.submit}>
+
+                        <Link href="/login">Voltar</Link>
+                        <button type="submit">Entrar</button>
+
+                    </div>
+
+                </form>
+
             </div>
-            <a href="">
-                <Image className={styles.suap} src={suap_logo} width={110} height={60} quality={100}/>
-            </a>
-            <div className={styles.submit}>
-               <Link href="/login">Voltar</Link>
-                <button type="submit">Criar Conta</button>
-            </div>
-        </form>
+
+        </main>
 
 )}
   
