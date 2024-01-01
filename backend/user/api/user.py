@@ -5,9 +5,9 @@ import jwt
 import json
 from requests import Session as S
 try:
-    import security
+    import user.security as security
 except:
-    from ... import security
+    import security
     
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm

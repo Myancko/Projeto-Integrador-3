@@ -1,5 +1,5 @@
 import datetime
-import security
+import user.security as security
 from pydantic import validator, field_validator
 from sqlalchemy import ForeignKey, Date, Column, String, Integer, Boolean
 from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column

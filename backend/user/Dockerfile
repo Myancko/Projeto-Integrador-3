@@ -1,6 +1,6 @@
 FROM python:latest
 
-LABEL authors="Project Empress"
+LABEL authors="Jonathan"
 
 WORKDIR /app
 
@@ -11,6 +11,6 @@ RUN ls -l /app
 RUN pip install --upgrade pip
 RUN pip install -r /app/requirements.txt
 
-EXPOSE 8000
+EXPOSE 8001
 
-CMD ["uvicorn", "main:app", "--port", "8000", "--host", "0.0.0.0"]
+CMD ["uvicorn", "user.main:app", "--port", "8001", "--host", "0.0.0.0"]

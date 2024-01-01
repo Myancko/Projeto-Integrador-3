@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+
+      request_api: 
+        build:
+          context: .
+          dockerfile: request/Dockerfile
+        ports:
+          - 8000:8000
+        volumes:
+          - .:/app/
+        depends_on: 
+          - db
+        restart: always
+
+      user_api: 
+        build:
+          context: .
+          dockerfile: user/Dockerfile
+        ports:
+          - 8001:8001
+        volumes:
+          - .:/app/
+        depends_on: 
+          - db
+        restart: always
+
+      db:
+        image: postgres:14.2-alpine
+        environment:
+          - POSTGRES_DB=test_11
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=root
+        volumes:
+          - backend_network:/var/lib/postgresql/data/
+        ports:
+          - "5433:5432"
+
+  
+volumes:
+  backend_network:

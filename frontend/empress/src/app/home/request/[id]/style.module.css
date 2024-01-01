@@ -124,7 +124,9 @@
 }
 .link_user
 {
+    overflow: hidden;
     width: 100%;
+    max-width: 160px;
     display: flex;
     flex-direction: column;
     align-items: center;
