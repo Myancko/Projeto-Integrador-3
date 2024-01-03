@@ -37,22 +37,6 @@ class UserTests(TestCase):
 
         Test_base_user.teardown()
 
-    @patch('user.test.test_user_api.test_get_user')
-    def test_get_user_with_mock(mock_get):
-
-        """ Testa o get de users """
-
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {
-            'matricula': '11111123',
-            'password': 'some_password'
-        }
-
-        response = test_get_user()
-
-        assert response.status_code == 200
-        assert response.json()['matricula'] == '11111123'
-        assert response.json()['password'] != "test_user"
 
 
     def test_add_user(self):

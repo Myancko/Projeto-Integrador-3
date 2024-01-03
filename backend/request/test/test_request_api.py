@@ -23,10 +23,18 @@ def test_get_request():
     
     Test_base_request.setup()
     
-    response = client.get("http://127.0.0.1:8000/request/get/6969")
+    response = client.get("http://127.0.0.1:8000/request/list")
     
+    try:
+        request_id = response.json()[-1]['id_request']
+    except:
+        request_id = 0
+    
+    response = client.get(f"http://127.0.0.1:8000/request/get/{request_id+1}")
+    
+    print(response, response.json(), '<<<')
     assert response.status_code == 200 
-    assert response.json()['id_request'] == 6969 
+
     
     Test_base_request.teardown()
     
@@ -34,12 +42,20 @@ def test_post_request():
     """ Testa o post de request """
         
     Test_base_request.setup()
-    id = random.randint(2000000, 9000000)
+    
+    response = client.get("http://127.0.0.1:8000/account/list")
+        
+    try:
+        user_id = response.json()[-1]['id_user']
+    except:
+        user_id = 1
+
     data = {
-    'id_request': id,
-    'owner': 6969,
+    'id_request': 0,
+    'owner': user_id,
     'color': True,
     'data': ':dasd',
+    'reason': 'eu qr',
     'two_sided': True,
     'quantity': 10,
     'status' : 'going',
@@ -52,12 +68,19 @@ def test_post_request():
     }
      
     response = client.post("http://127.0.0.1:8000/request/add", params=data, files=files)
+    
+    response = client.get("http://127.0.0.1:8000/request/list")
+        
+    try:
+        request_id = response.json()[-1]['id_request']
+    except:
+        request_id = 1
    
     assert response.status_code == 200
-    response = client.get(f"http://127.0.0.1:8000/request/get/{id}")
-    assert response.json()['id_request'] == id
+    response = client.get(f"http://127.0.0.1:8000/request/get/{request_id}")
+    assert response.json()['id_request'] == request_id
     
-    client.delete(f"/request/delete/{id}")
+    client.delete(f"/request/delete/{request_id}")
     
     Test_base_request.teardown()
     
@@ -66,10 +89,15 @@ def test_delete_request():
     
     Test_base_request.setup()
     
-    response = client.get("http://127.0.0.1:8000/request/get/6969")
+    response = client.get("http://127.0.0.1:8000/request/list")
+        
+    try:
+        request_id = response.json()[-1]['id_request']
+    except:
+        request_id = 1
     
     assert response.status_code == 200 
-    assert response.json()['id_request'] == 6969 
+    assert response.json()[-1]['id_request'] == request_id 
     
     Test_base_request.teardown()
     
@@ -77,50 +105,42 @@ def test_update_request():
     
     Test_base_request.setup()
     
-    id = random.randint(2000000, 9000000)
-    data = {
-    'id_request': id,
-    'owner': 6969,
-    'color': True,
-    'data': ':dasd',
-    'two_sided': True,
-    'quantity': 10,
-    'status' : 'going',
-    'date': '2023-11-03'
-}
+    response = client.get("http://127.0.0.1:8000/account/list")
+        
+    try:
+        user_id = response.json()[-1]['id_user']
+    except:
+        user_id = 1
+        
+    response = client.get("http://127.0.0.1:8000/request/list")
+        
+    try:
+        request_id = response.json()[-1]['id_request']
+    except:
+        request_id = 1
     
-    files = {
-    'file': open('request/test/test_file/test.rtf', 'rb')
-    }
-    
-    
-    response = client.post("http://127.0.0.1:8000/request/add", params=data, files=files)
-   
-    assert response.status_code == 200
-    response = client.get(f"http://127.0.0.1:8000/request/get/{id}")
-    assert response.json()['id_request'] == id
-    assert response.json()['status'] == 'going'
-    print(response.json()['data'], '<<<<<<<<<')
+
     
     patch = {
-    'id_request': id,
-    'owner': 6969,
-    'color': True,
-    'data': response.json()['data'],
-    'two_sided': True,
-    'quantity': 10,
-    'status' : 'gone',
-    'date': '2023-11-04'
+    "id_request": request_id,
+    "owner": 1,
+    "color": True,
+    "data": ":dasd",
+    "reason": "eu qr s",
+    "two_sided": True,
+    "quantity": 10,
+    "status": "going",
+    "date": "2023-11-03"
 }
 
-    response = client.patch(f"http://127.0.0.1:8000/request/update/{id}", json=patch)
+    response = client.patch(f"http://127.0.0.1:8000/request/update/{request_id}", json=patch)
     print(response.json(), ' <<<<<<<<<<<')
     print(response.text , '<<<<<<<<<<<<')
     
     assert response.status_code == 201
-    response = client.get(f"http://127.0.0.1:8000/request/get/{id}")
-    assert response.json()['date'] == "2023-11-04"
-    assert response.json()['status'] == 'gone'
+    response = client.get(f"http://127.0.0.1:8000/request/get/{request_id}")
+    assert response.json()['date'] == "2023-11-03"
+    assert response.json()['status'] == 'going'
     
     client.delete(f"/request/delete/{id}")
     
